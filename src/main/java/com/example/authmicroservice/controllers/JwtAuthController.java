@@ -3,6 +3,7 @@ package com.example.authmicroservice.controllers;
 import com.example.authmicroservice.config.JwtRequest;
 import com.example.authmicroservice.config.JwtResponse;
 import com.example.authmicroservice.config.JwtTokenUtil;
+import com.example.authmicroservice.dtos.UserDto;
 import com.example.authmicroservice.services.JwtUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,5 +45,9 @@ public class JwtAuthController {
         } catch (BadCredentialsException e) {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
+    }
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public ResponseEntity<?> saveUser(@RequestBody UserDto user) throws Exception {
+        return ResponseEntity.ok(userDetailsService.save(user));
     }
 }
